@@ -1,30 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 final greenTheme = ThemeData(
-  //General
+  // General
   brightness: Brightness.light,
   primaryColor: Colors.green,
-  accentColor: Colors.green[900],
   errorColor: Colors.red,
   shadowColor: Colors.grey[300],
-  //Text
+  // Text
   textTheme: GoogleFonts.montserratTextTheme().copyWith(
     bodyText2: TextStyle(
       color: Colors.grey[600],
       height: 1.5,
     ),
   ),
-  //Divider
+  // Divider
   dividerTheme: DividerThemeData(
     color: Colors.grey[600],
   ),
-  //Dialog
+  // Dialog
   dialogTheme: DialogTheme(
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(
-        20,
-      ),
+      borderRadius: BorderRadius.circular(20),
     ),
     titleTextStyle: TextStyle(
       color: Colors.green,
@@ -35,7 +33,7 @@ final greenTheme = ThemeData(
       fontSize: 16,
     ),
   ),
-  //Button
+  // Button
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
       primary: Colors.green,
@@ -52,47 +50,44 @@ final greenTheme = ThemeData(
       ),
     ),
   ),
-  //Card
+  // Card
   cardTheme: CardTheme(
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(
-        20,
-      ),
+      borderRadius: BorderRadius.circular(20),
     ),
   ),
-  //AppBar
+  // AppBar
   appBarTheme: AppBarTheme(
-    elevation: 5,
-    brightness: Brightness.dark,
-    textTheme: TextTheme(
-      headline6: GoogleFonts.montserrat().copyWith(
+    elevation: 5, systemOverlayStyle: SystemUiOverlayStyle.light, toolbarTextStyle: TextTheme(
+      titleLarge: GoogleFonts.montserrat().copyWith(
         fontSize: 20,
       ),
-    ),
+    ).bodyText2, titleTextStyle: TextTheme(
+      titleLarge: GoogleFonts.montserrat().copyWith(
+        fontSize: 20,
+      ),
+    ).headline6,
   ),
-  //Scaffold
+  // Scaffold
   scaffoldBackgroundColor: Colors.white,
-  //BottomNavigationBar
+  // BottomNavigationBar
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
     backgroundColor: Colors.green,
     selectedItemColor: Colors.green[900],
     unselectedItemColor: Colors.white,
     showUnselectedLabels: false,
-  ),
+  ), colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.green[900]),
 );
 
 final greenDarkTheme = ThemeData(
   brightness: Brightness.dark,
   primaryColor: Colors.green[700],
-  accentColor: Colors.green[900],
   errorColor: Colors.red,
   shadowColor: Colors.grey[900],
-  //Dialog
+  // Dialog
   dialogTheme: DialogTheme(
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(
-        20,
-      ),
+      borderRadius: BorderRadius.circular(20),
     ),
     titleTextStyle: TextStyle(
       fontSize: 20,
@@ -101,7 +96,7 @@ final greenDarkTheme = ThemeData(
       fontSize: 16,
     ),
   ),
-  //Button
+  // Button
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
       primary: Colors.green[700],
@@ -118,28 +113,29 @@ final greenDarkTheme = ThemeData(
       ),
     ),
   ),
-  //Card
+  // Card
   cardTheme: CardTheme(
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(
-        20,
-      ),
+      borderRadius: BorderRadius.circular(20),
     ),
   ),
-  //AppBar
+  // AppBar
   appBarTheme: AppBarTheme(
-    elevation: 5,
-    textTheme: TextTheme(
+    elevation: 5, toolbarTextStyle: TextTheme(
       headline6: GoogleFonts.montserrat().copyWith(
         fontSize: 20,
       ),
-    ),
+    ).bodyText2, titleTextStyle: TextTheme(
+      headline6: GoogleFonts.montserrat().copyWith(
+        fontSize: 20,
+      ),
+    ).headline6,
   ),
-  //BottomNavigationBar
+  // BottomNavigationBar
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
     backgroundColor: Colors.green[700],
     selectedItemColor: Colors.green[900],
     unselectedItemColor: Colors.white,
     showUnselectedLabels: false,
-  ),
+  ), colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.green[900]),
 );

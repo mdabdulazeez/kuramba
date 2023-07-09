@@ -4,37 +4,29 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class UserImagePicker extends StatefulWidget {
-  final void Function(
-    File pickedImage,
-  ) pickImage;
+  final void Function(File pickedImage) pickImage;
 
-  UserImagePicker(
-    this.pickImage,
-  );
+  UserImagePicker(this.pickImage);
 
   @override
   _UserImagePickerState createState() => _UserImagePickerState();
 }
 
 class _UserImagePickerState extends State<UserImagePicker> {
-  File _previewImage;
+  late File _previewImage;
 
   void _pickImage() async {
     await showDialog(
       context: context,
       builder: (context) => AlertDialog(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(
-            20,
-          ),
+          borderRadius: BorderRadius.circular(20),
         ),
-        content: Text(
-          'Take a picture or choose one from your gallery!',
-        ),
+        content: Text('Take a picture or choose one from your gallery!'),
         actions: [
           TextButton.icon(
             onPressed: () async {
-              final pickedImage = await ImagePicker().getImage(
+              final pickedImage = await ImagePicker().pickImage(
                 source: ImageSource.gallery,
                 maxHeight: 400,
                 maxWidth: 400,
@@ -42,15 +34,11 @@ class _UserImagePickerState extends State<UserImagePicker> {
               setState(() {
                 _previewImage = pickedImage == null
                     ? _previewImage
-                    : File(
-                        pickedImage.path,
-                      );
+                    : File(pickedImage.path);
               });
               Navigator.of(context).pop();
             },
-            icon: Icon(
-              Icons.image_rounded,
-            ),
+            icon: Icon(Icons.image_rounded),
             label: Text(
               'Gallery',
               style: TextStyle(
@@ -60,7 +48,7 @@ class _UserImagePickerState extends State<UserImagePicker> {
           ),
           TextButton.icon(
             onPressed: () async {
-              final pickedImage = await ImagePicker().getImage(
+              final pickedImage = await ImagePicker().pickImage(
                 source: ImageSource.camera,
                 maxHeight: 400,
                 maxWidth: 400,
@@ -68,15 +56,11 @@ class _UserImagePickerState extends State<UserImagePicker> {
               setState(() {
                 _previewImage = pickedImage == null
                     ? _previewImage
-                    : File(
-                        pickedImage.path,
-                      );
+                    : File(pickedImage.path);
               });
               Navigator.of(context).pop();
             },
-            icon: Icon(
-              Icons.camera_alt_rounded,
-            ),
+            icon: Icon(Icons.camera_alt_rounded),
             label: Text(
               'Camera',
               style: TextStyle(
@@ -87,9 +71,7 @@ class _UserImagePickerState extends State<UserImagePicker> {
         ],
       ),
     );
-    widget.pickImage(
-      _previewImage,
-    );
+    widget.pickImage(_previewImage);
   }
 
   @override
@@ -108,13 +90,9 @@ class _UserImagePickerState extends State<UserImagePicker> {
               : null,
           backgroundImage: _previewImage == null
               ? null
-              : FileImage(
-                  _previewImage,
-                ),
+              : FileImage(_previewImage),
         ),
-        SizedBox(
-          height: 20,
-        ),
+        SizedBox(height: 20),
         TextButton(
           onPressed: _pickImage,
           child: Text(

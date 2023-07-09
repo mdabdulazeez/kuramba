@@ -9,15 +9,15 @@ class UserData {
   final List<String> contacts;
 
   UserData({
-    @required this.email,
-    @required this.username,
-    @required this.imageURL,
-    @required this.contacts,
+    required this.email,
+    required this.username,
+    required this.imageURL,
+    required this.contacts,
   });
 }
 
 class CurrentUser with ChangeNotifier {
-  UserData _user;
+  late UserData _user;
 
   UserData get user {
     return UserData(
@@ -32,17 +32,17 @@ class CurrentUser with ChangeNotifier {
     try {
       final userData = await FirebaseFirestore.instance
           .collection('users')
-          .doc(FirebaseAuth.instance.currentUser.uid)
+          .doc(FirebaseAuth.instance.currentUser!.uid)
           .get();
       final userContacts = await FirebaseFirestore.instance
           .collection('users')
-          .doc(FirebaseAuth.instance.currentUser.uid)
+          .doc(FirebaseAuth.instance.currentUser!.uid)
           .collection('contacts')
           .get();
       _user = UserData(
-        email: userData.data()['email'],
-        username: userData.data()['username'],
-        imageURL: userData.data()['image_url'],
+        email: userData.data()!['email'],
+        username: userData.data()!['username'],
+        imageURL: userData.data()!['image_url'],
         contacts: userContacts.docs.map(
           (contactDoc) {
             return contactDoc.id;
@@ -69,7 +69,7 @@ class CurrentUser with ChangeNotifier {
           .docs[0];
       return fb
           .collection('users')
-          .doc(FirebaseAuth.instance.currentUser.uid)
+          .doc(FirebaseAuth.instance.currentUser!.uid)
           .collection('contacts')
           .doc(contactDoc.id)
           .set({});

@@ -11,7 +11,7 @@ class SearchView extends StatefulWidget {
 }
 
 class _SearchViewState extends State<SearchView> {
-  TextEditingController _searchController;
+  late TextEditingController _searchController;
   List<String> matches = [];
   var _loading = false;
 
@@ -115,7 +115,7 @@ class _SearchViewState extends State<SearchView> {
       onTap: () {
         final FocusScopeNode currentScope = FocusScope.of(context);
         if (!currentScope.hasPrimaryFocus && currentScope.hasFocus) {
-          FocusManager.instance.primaryFocus.unfocus();
+          FocusManager.instance.primaryFocus!.unfocus();
         }
       },
       child: Scaffold(

@@ -6,10 +6,10 @@ import 'package:package_info/package_info.dart';
 class CustomAboutDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final Title _ancestorTitle = context.findAncestorWidgetOfExactType<Title>();
+    final Title? _ancestorTitle = context.findAncestorWidgetOfExactType<Title>();
     final _appName = _ancestorTitle?.title ??
         Platform.resolvedExecutable.split(Platform.pathSeparator).last;
-    return FutureBuilder(
+    return FutureBuilder<PackageInfo>(
       future: PackageInfo.fromPlatform(),
       builder: (
         context,
@@ -30,7 +30,7 @@ class CustomAboutDialog extends StatelessWidget {
                 ),
                 Text(
                   packageSnapshot.hasData
-                      ? 'Version ${packageSnapshot.data.version}'
+                      ? 'Version ${packageSnapshot.data!.version}'
                       : 'Loading version...',
                 ),
                 const SizedBox(
@@ -38,7 +38,7 @@ class CustomAboutDialog extends StatelessWidget {
                 ),
                 Text(
                   packageSnapshot.hasData
-                      ? 'Build ${packageSnapshot.data.buildNumber}'
+                      ? 'Build ${packageSnapshot.data!.buildNumber}'
                       : 'Loading build number...',
                 ),
                 const SizedBox(
@@ -52,7 +52,7 @@ class CustomAboutDialog extends StatelessWidget {
                         'Licenses',
                         style: Theme.of(context)
                             .dialogTheme
-                            .contentTextStyle
+                            .contentTextStyle!
                             .copyWith(
                               color: Theme.of(context).primaryColor,
                             ),
@@ -60,7 +60,7 @@ class CustomAboutDialog extends StatelessWidget {
                       onPressed: () {
                         showLicensePage(
                           applicationVersion: packageSnapshot.hasData
-                              ? '\nVersion ${packageSnapshot.data.version}\n\nBuild ${packageSnapshot.data.buildNumber}'
+                              ? '\nVersion ${packageSnapshot.data!.version}\n\nBuild ${packageSnapshot.data!.buildNumber}'
                               : 'Loading version...',
                           context: context,
                         );
@@ -71,7 +71,7 @@ class CustomAboutDialog extends StatelessWidget {
                         'Close',
                         style: Theme.of(context)
                             .dialogTheme
-                            .contentTextStyle
+                            .contentTextStyle!
                             .copyWith(
                               color: Theme.of(context).errorColor,
                             ),

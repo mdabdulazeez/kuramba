@@ -9,7 +9,7 @@ class QuestionView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Map<String, dynamic> arguments =
-        ModalRoute.of(context).settings.arguments;
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
 
     return Scaffold(
       appBar: AppBar(

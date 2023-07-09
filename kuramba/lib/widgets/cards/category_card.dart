@@ -8,9 +8,9 @@ class CategoryCard extends StatelessWidget {
   final String routeName;
 
   CategoryCard({
-    @required this.title,
-    @required this.iconData,
-    @required this.routeName,
+    required this.title,
+    required this.iconData,
+    required this.routeName,
   });
 
   void selectCategory(BuildContext context) {

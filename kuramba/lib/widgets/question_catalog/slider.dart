@@ -18,7 +18,7 @@ class _CustomSliderState extends State<CustomSlider> {
             max: 10.0,
             divisions: 10,
             activeColor: Theme.of(context).primaryColor,
-            inactiveColor: Theme.of(context).accentColor,
+            inactiveColor: Theme.of(context).colorScheme.secondary,
             label: _value.toString(),
             onChanged: (double newValue) {
               setState(() {

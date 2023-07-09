@@ -11,8 +11,8 @@ class QuestionCard extends StatelessWidget {
   final Color color;
 
   QuestionCard({
-    this.preview,
-    this.color,
+    required this.preview,
+    required this.color,
   });
 
   @override

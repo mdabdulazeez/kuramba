@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:expansion_card/expansion_card.dart';
 
 import 'question_card.dart';
 
@@ -11,9 +10,9 @@ class QuestionCategoryCard extends StatelessWidget {
   final List<QuestionPreview> previews;
 
   QuestionCategoryCard({
-    this.previews,
-    this.color,
-    this.category,
+    required this.previews,
+    required this.color,
+    required this.category,
   });
 
   @override
@@ -24,29 +23,24 @@ class QuestionCategoryCard extends StatelessWidget {
         color: color,
         borderRadius: BorderRadius.circular(30.0),
       ),
-      child: ExpansionCard(
-        initiallyExpanded: false,
-        borderRadius: 30,
+      child: ExpansionTile(
+        collapsedBackgroundColor: color,
+        backgroundColor: color,
+        collapsedTextColor: Theme.of(context).textTheme.bodyText2!.color,
+        textColor: Theme.of(context).textTheme.bodyText2!.color,
+        iconColor: Theme.of(context).textTheme.bodyText2!.color,
         title: Text(
           category,
           style: TextStyle(
             fontSize: 25,
-            color: Theme.of(context).textTheme.bodyText2.color,
           ),
         ),
-        children: <Widget>[
-          ListView.builder(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            shrinkWrap: true,
-            itemCount: previews.length,
-            itemBuilder: (BuildContext context, int index) {
-              return QuestionCard(
-                preview: previews[index],
-                color: color,
-              );
-            },
-          ),
-        ],
+        children: previews.map((preview) {
+          return QuestionCard(
+            preview: preview,
+            color: color,
+          );
+        }).toList(),
       ),
     );
   }

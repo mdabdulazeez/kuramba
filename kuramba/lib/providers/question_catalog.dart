@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../models/question.dart';
@@ -13,54 +12,26 @@ class QuestionCatalog with ChangeNotifier {
           .collection('questions')
           .doc('previews')
           .get();
+
       if (previewDoc.exists) {
         _questionPreviews = [];
         final previewData = previewDoc.data();
-        previewData.forEach(
-          (key, value) {
-            _questionPreviews.add(
-              QuestionPreview(
-                  id: key,
-                  title: value['title'],
-                  // getCategory(value['category']),
-                  category: value['category']),
-            );
-          },
-        );
+        previewData?.forEach((key, value) {
+          _questionPreviews.add(
+            QuestionPreview(
+              id: key,
+              title: value['title'],
+              category: value['category'],
+            ),
+          );
+        });
       }
     } catch (error) {
       throw error;
     }
   }
 
-  // QuestionCategory getCategory(String category) {
-  //   switch (category) {
-  //     case 'living':
-  //       return QuestionCategory.living;
-  //       break;
-  //     case 'consumption':
-  //       return QuestionCategory.consumption;
-  //       break;
-  //     case 'nutrition':
-  //       return QuestionCategory.nutrition;
-  //       break;
-  //     case 'leisure':
-  //       return QuestionCategory.leisure;
-  //       break;
-  //     case 'mobility':
-  //       return QuestionCategory.mobility;
-  //       break;
-  //     case 'traveling':
-  //       return QuestionCategory.traveling;
-  //       break;
-  //     default:
-  //       return QuestionCategory.miscellaneous;
-  //   }
-  // }
-
-  List<QuestionPreview> get previews {
-    return [..._questionPreviews];
-  }
+  List<QuestionPreview> get previews => [..._questionPreviews];
 
   Future<Question> getQuestion(String id) async {
     try {
@@ -68,95 +39,87 @@ class QuestionCatalog with ChangeNotifier {
           .collection('questions')
           .doc(id)
           .get();
+
       if (questionDoc.exists) {
         final questionData = questionDoc.data();
-        print(questionData['type']);
-        switch (questionData['type']) {
+        final questionTitle = questionData?['title'];
+        final questionCategory = questionData?['category'];
+
+        switch (questionData?['type']) {
           case 'number':
             return NumberQuestion(
               id: id,
-              title: questionDoc['title'],
-              // category: getCategory(questionDoc['category']),
-              category: questionDoc['category'],
-              question: questionDoc['question'],
+              title: questionTitle!,
+              category: questionCategory!,
+              question: questionData?['question'],
+              minValue: questionData?['minValue'] ?? 0,
+              maxValue: questionData?['maxValue'] ?? 1,
             );
-            break;
           case 'checkbox':
             return CheckBoxQuestion(
               id: id,
-              title: questionDoc['title'],
-              // category: getCategory(questionDoc['category']),
-              category: questionDoc['category'],
-              question: questionDoc['question'],
-              answers: questionDoc['answers']
-                  .map(
-                    (answer) => Answer(
-                      answer: answer['answer'],
-                      points: answer['points'],
-                    ),
-                  )
+              title: questionTitle!,
+              category: questionCategory!,
+              question: questionData?['question'],
+              answers: (questionData?['answers'] as List<dynamic>)
+                  .map((answer) => Answer(
+                        answer: answer['answer'],
+                        points: answer['points'],
+                      ))
                   .toList(),
+              requiredAnswers: questionData?['requiredAnswers'] ?? 1,                  
             );
-            break;
           case 'combobox':
             return ComboBoxQuestion(
               id: id,
-              title: questionDoc['title'],
-              // category: getCategory(questionDoc['category']),
-              category: questionDoc['category'],
-              question: questionDoc['question'],
-              answers: questionDoc['answers']
-                  .map(
-                    (answer) => Answer(
-                      answer: answer['answer'],
-                      points: answer['points'],
-                    ),
-                  )
+              title: questionTitle!,
+              category: questionCategory!,
+              question: questionData?['question'],
+              answers: (questionData?['answers'] as List<dynamic>)
+                  .map((answer) => Answer(
+                        answer: answer['answer'],
+                        points: answer['points'],
+                      ))
                   .toList(),
             );
-            break;
           case 'radiobutton':
             return RadioButtonQuestion(
               id: id,
-              title: questionDoc['title'],
-              // category: getCategory(questionDoc['category']),
-              category: questionDoc['category'],
-              question: questionDoc['question'],
-              answers: questionDoc['answers']
-                  .map(
-                    (answer) => Answer(
-                      answer: answer['answer'],
-                      points: answer['points'],
-                    ),
-                  )
+              title: questionTitle!,
+              category: questionCategory!,
+              question: questionData?['question'],
+              answers: (questionData?['answers'] as List<dynamic>)
+                  .map((answer) => Answer(
+                        answer: answer['answer'],
+                        points: answer['points'],
+                      ))
                   .toList(),
             );
-            break;
           case 'slider':
             return SliderQuestion(
               id: id,
-              title: questionDoc['title'],
-              // category: getCategory(questionDoc['category']),
-              category: questionDoc['category'],
-              question: questionDoc['question'] ?? '',
-              minValue: questionDoc['minValue'] ?? 0,
-              maxValue: questionDoc['maxValue'] ?? 1,
+              title: questionTitle!,
+              category: questionCategory!,
+              question: questionData?['question'] ?? '',
+              minValue: questionData?['minValue'] ?? 0,
+              maxValue: questionData?['maxValue'] ?? 1,
+              divisions: questionData?['divisions'] ?? 1,
             );
-            break;
+
           default:
             return Question(
               id: id,
-              title: questionDoc['title'],
-              // category: getCategory(questionDoc['category']),
-              category: questionDoc['category'],
-              question: questionDoc['question'],
+              title: questionTitle!,
+              category: questionCategory!,
+              question: questionData?['question'],
             );
         }
       } else {
-        throw Exception(['Question not found.']);
+        throw StateError('Question not found.');
       }
     } catch (error) {
-      print(error.message);
+      print(error.toString());
+      rethrow;
     }
   }
 }

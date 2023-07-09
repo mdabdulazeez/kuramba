@@ -27,17 +27,17 @@ class AuthForm extends StatefulWidget {
 }
 
 class _AuthFormState extends State<AuthForm> {
-  GlobalKey<FormState> _formKey;
-  FocusNode _usernameFocusNode;
-  FocusNode _passwordFocusNode;
-  FocusNode _confirmPasswordFocusNode;
-  TextEditingController _passwordController;
+  late GlobalKey<FormState> _formKey;
+  late FocusNode _usernameFocusNode;
+  late FocusNode _passwordFocusNode;
+  late FocusNode _confirmPasswordFocusNode;
+  late TextEditingController _passwordController;
   var _login = true;
 
   String _email = '';
   String _username = '';
   String _password = '';
-  File _userImageFile;
+  late File _userImageFile;
 
   void _pickImage(
     File pickedImage,
@@ -66,7 +66,7 @@ class _AuthFormState extends State<AuthForm> {
 
   void _submit() {
     FocusScope.of(context).unfocus();
-    if (_formKey.currentState.validate()) {
+    if (_formKey.currentState!.validate()) {
       if (!_login && _userImageFile == null) {
         showDialog(
           context: context,
@@ -74,7 +74,7 @@ class _AuthFormState extends State<AuthForm> {
         );
         return;
       }
-      _formKey.currentState.save();
+      _formKey.currentState!.save();
       widget.onSubmit(
         _email.trim(),
         _username.trim(),
@@ -117,13 +117,13 @@ class _AuthFormState extends State<AuthForm> {
                       }
                     },
                     validator: (value) {
-                      if (value.isEmpty || !value.contains('@')) {
+                      if (value!.isEmpty || !value.contains('@')) {
                         return 'Please enter a valid email address.';
                       }
                       return null;
                     },
                     onSaved: (value) {
-                      _email = value;
+                      _email = value!;
                     },
                   ),
                   if (!_login)
@@ -138,13 +138,13 @@ class _AuthFormState extends State<AuthForm> {
                         FocusScope.of(context).requestFocus(_passwordFocusNode);
                       },
                       validator: (value) {
-                        if (value.isEmpty) {
+                        if (value!.isEmpty) {
                           return 'Please enter a username.';
                         }
                         return null;
                       },
                       onSaved: (value) {
-                        _username = value;
+                        _username = value!;
                       },
                     ),
                   TextFormField(
@@ -157,7 +157,7 @@ class _AuthFormState extends State<AuthForm> {
                     textInputAction: TextInputAction.done,
                     focusNode: _passwordFocusNode,
                     validator: (value) {
-                      if (value.isEmpty || value.length < 8) {
+                      if (value!.isEmpty || value.length < 8) {
                         return 'Your password must be 8 characters long.';
                       }
                       return null;
@@ -171,7 +171,7 @@ class _AuthFormState extends State<AuthForm> {
                       }
                     },
                     onSaved: (value) {
-                      _password = value;
+                      _password = value!;
                     },
                   ),
                   if (!_login)
@@ -187,7 +187,7 @@ class _AuthFormState extends State<AuthForm> {
                         if (value != _passwordController.text) {
                           return 'Passwords do not match.';
                         }
-                        if (value.isEmpty || value.length < 8) {
+                        if (value!.isEmpty || value.length < 8) {
                           return 'Your password must be 8 characters long.';
                         }
                         return null;

@@ -20,6 +20,7 @@ class MainSettingsView extends StatelessWidget {
         right: 20,
       ),
       child: CustomCard(
+        onTap: () {  },
         child: Container(
           padding: const EdgeInsets.symmetric(
             horizontal: 8,
@@ -31,7 +32,7 @@ class MainSettingsView extends StatelessWidget {
               style: Theme.of(context).textTheme.bodyText2,
             ),
             trailing: Icon(icon),
-            onTap: onPressed,
+            onTap: () => onPressed(),            
           ),
         ),
       ),
@@ -40,7 +41,7 @@ class MainSettingsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Title _ancestorTitle = context.findAncestorWidgetOfExactType<Title>();
+    final Title? _ancestorTitle = context.findAncestorWidgetOfExactType<Title>();
     final _appName = _ancestorTitle?.title ??
         Platform.resolvedExecutable.split(Platform.pathSeparator).last;
     return Scaffold(

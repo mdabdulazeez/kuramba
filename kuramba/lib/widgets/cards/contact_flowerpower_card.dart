@@ -6,7 +6,7 @@ class ContactFlowerpowerCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AsyncSnapshot userSnapshot =
-        ModalRoute.of(context).settings.arguments;
+        ModalRoute.of(context)!.settings.arguments as AsyncSnapshot<dynamic>;
     return CustomCard(
       onTap: () {},
       child: Padding(

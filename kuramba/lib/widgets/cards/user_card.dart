@@ -7,15 +7,27 @@ import '../../views/contact_profile_view.dart';
 class UserCard extends StatelessWidget {
   final String userID;
 
-  UserCard(
-    this.userID,
-  );
+  UserCard(this.userID);
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
+    return FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
       future: FirebaseFirestore.instance.collection('users').doc(userID).get(),
       builder: (context, userSnapshot) {
+        if (userSnapshot.connectionState == ConnectionState.waiting) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        } else if (userSnapshot.hasError) {
+          return Text('Error: ${userSnapshot.error}');
+        } else if (!userSnapshot.hasData) {
+          return Text('No user data available');
+        }
+
+        final userData = userSnapshot.data!.data();
+        final imageUrl = userData?['image_url'];
+        final username = userData?['username'];
+
         return CustomCard(
           onTap: () {
             Navigator.of(context).pushNamed(
@@ -27,39 +39,19 @@ class UserCard extends StatelessWidget {
             children: [
               Expanded(
                 flex: 2,
-                child: userSnapshot.connectionState == ConnectionState.waiting
-                    ? Center(
-                        child: CircularProgressIndicator(),
-                      )
-                    // : Hero(
-                    //     tag: userSnapshot.data.id,
-                    //     child: Container(
-                    //       child: userSnapshot.data['image_url'] == null
-                    //           ? Image.asset(
-                    //               'assets/images/blank_profile_picture.png',
-                    //               fit: BoxFit.cover,
-                    //             )
-                    //           : Image.network(
-                    //               userSnapshot.data['image_url'],
-                    //               fit: BoxFit.cover,
-                    //             ),
-                    //       height: double.infinity,
-                    //       width: double.infinity,
-                    //     ),
-                    //   ),
-                    : Container(
-                        child: userSnapshot.data['image_url'] == null
-                            ? Image.asset(
-                                'assets/images/blank_profile_picture.png',
-                                fit: BoxFit.cover,
-                              )
-                            : Image.network(
-                                userSnapshot.data['image_url'],
-                                fit: BoxFit.cover,
-                              ),
-                        height: double.infinity,
-                        width: double.infinity,
-                      ),
+                child: Container(
+                  child: imageUrl == null
+                      ? Image.asset(
+                          'assets/images/blank_profile_picture.png',
+                          fit: BoxFit.cover,
+                        )
+                      : Image.network(
+                          imageUrl,
+                          fit: BoxFit.cover,
+                        ),
+                  height: double.infinity,
+                  width: double.infinity,
+                ),
               ),
               Expanded(
                 child: Container(
@@ -75,19 +67,17 @@ class UserCard extends StatelessWidget {
                     ),
                   ),
                   padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: userSnapshot.connectionState == ConnectionState.waiting
-                      ? null
-                      : Center(
-                          child: Text(
-                            '${userSnapshot.data['username']}',
-                            textAlign: TextAlign.left,
-                            overflow: TextOverflow.fade,
-                            softWrap: false,
-                            style: TextStyle(
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
+                  child: Center(
+                    child: Text(
+                      '$username',
+                      textAlign: TextAlign.left,
+                      overflow: TextOverflow.fade,
+                      softWrap: false,
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ],

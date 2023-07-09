@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 class CustomCard extends StatelessWidget {
   final Widget child;
-  final Function onTap;
+  final void Function()? onTap;
 
   CustomCard({
-    @required this.child,
-    this.onTap,
+    required this.child,
+    required this.onTap,
   });
 
   @override

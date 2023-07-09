@@ -12,9 +12,9 @@ class RadioButton extends StatefulWidget {
 }
 
 class _RadioButtonState extends State<RadioButton> {
-  Answer _site = Answer.answer1;
+  Answer? _site = Answer.answer1;
 
-  void answer(Answer value) {
+  void answer(Answer? value) {
     setState(() {
       _site = value;
     });
@@ -26,7 +26,7 @@ class _RadioButtonState extends State<RadioButton> {
       children: <Widget>[
         ListTile(
           title: const Text('Answer 1'),
-          leading: Radio(
+          leading: Radio<Answer>(
             activeColor: Theme.of(context).primaryColor,
             value: Answer.answer1,
             groupValue: _site,

@@ -6,7 +6,6 @@ class CustomCheckbox extends StatefulWidget {
 }
 
 class _CustomCheckboxState extends State<CustomCheckbox> {
-
   bool firstValue = false;
   bool secondValue = false;
 
@@ -18,11 +17,11 @@ class _CustomCheckboxState extends State<CustomCheckbox> {
           controlAffinity: ListTileControlAffinity.leading,
           //secondary: const Icon(Icons.add),
           title: const Text('Answer 1'),
-          value: this.firstValue,
+          value: firstValue,
           activeColor: Theme.of(context).primaryColor,
-          onChanged: (bool value) {
+          onChanged: (bool? value) {
             setState(() {
-              this.firstValue = value;
+              firstValue = value ?? false;
             });
           },
         ),

@@ -17,9 +17,9 @@ class QuestionPreview {
   final String category;
 
   QuestionPreview({
-    @required this.id,
-    @required this.title,
-    @required this.category,
+    required this.id,
+    required this.title,
+    required this.category,
   });
 }
 
@@ -28,8 +28,8 @@ class Answer {
   final int points;
 
   Answer({
-    @required this.answer,
-    @required this.points,
+    required this.answer,
+    required this.points,
   });
 }
 
@@ -41,10 +41,10 @@ class Question {
   final String question;
 
   Question({
-    @required this.id,
-    @required this.title,
-    @required this.category,
-    @required this.question,
+    required this.id,
+    required this.title,
+    required this.category,
+    required this.question,
   });
 }
 
@@ -53,12 +53,12 @@ class NumberQuestion extends Question {
   int maxValue;
 
   NumberQuestion({
-    @required id,
-    @required title,
-    @required category,
-    @required question,
-    this.minValue,
-    this.maxValue,
+    required id,
+    required title,
+    required category,
+    required question,
+    required this.minValue,
+    required this.maxValue,
   }) : super(
           id: id,
           title: title,
@@ -72,12 +72,12 @@ class CheckBoxQuestion extends Question {
   int requiredAnswers;
 
   CheckBoxQuestion({
-    @required id,
-    @required title,
-    @required category,
-    @required question,
-    @required this.answers,
-    this.requiredAnswers,
+    required id,
+    required title,
+    required category,
+    required question,
+    required this.answers,
+    required this.requiredAnswers,
   }) : super(
           id: id,
           title: title,
@@ -90,11 +90,11 @@ class ComboBoxQuestion extends Question {
   final List<Answer> answers;
 
   ComboBoxQuestion({
-    @required id,
-    @required title,
-    @required category,
-    @required question,
-    @required this.answers,
+    required id,
+    required title,
+    required category,
+    required question,
+    required this.answers,
   }) : super(
           id: id,
           title: title,
@@ -107,11 +107,11 @@ class RadioButtonQuestion extends Question {
   final List<Answer> answers;
 
   RadioButtonQuestion({
-    @required id,
-    @required title,
-    @required category,
-    @required question,
-    @required this.answers,
+    required id,
+    required title,
+    required category,
+    required question,
+    required this.answers,
   }) : super(
           id: id,
           title: title,
@@ -126,13 +126,13 @@ class SliderQuestion extends Question {
   int divisions;
 
   SliderQuestion({
-    @required id,
-    @required title,
-    @required category,
-    @required question,
-    @required this.minValue,
-    @required this.maxValue,
-    this.divisions,
+    required id,
+    required title,
+    required category,
+    required question,
+    required this.minValue,
+    required this.maxValue,
+    required this.divisions,
   }) : super(
           id: id,
           title: title,

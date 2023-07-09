@@ -15,44 +15,79 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+
+# In Windows, build-name is used as the major, minor, and patch parts
+# of the product and file versions while build-number is used as the build suffix.
 version: 1.0.0+1
+# This section identifies this Flutter project as a plugin project that can
+# be consumed by other Flutter projects.
+#
+# The `flutter` section tells the Flutter tooling which pubspec plugin handles
+# this project's plugin implementation. The "flutter" section should always
+# have a "plugin" entry that points to the plugin class that implements
+# this project's plugin functionality.
+#
+# The `plugin` section tells the Dart tooling which plugin registrant class
+# handles this project's Dart code. The "plugin" section should always have
+# a "class" entry that points to the plugin registrant class that implements
+# this project's Dart code functionality.
+#
+# The `flutter` and `plugin` sections must be present for the pub tooling to
+# consider this a valid Flutter plugin project.
+
+
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: '>=2.12.0 <4.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
+
+
+  cloud_firestore: ^4.8.2
+  cupertino_icons: ^1.0.5
+  firebase_auth: ^4.6.3
+  firebase_core: ^2.14.0
+  firebase_storage: ^11.2.4
+  google_fonts: ^2.1.0
+  http: 
+  image_picker: ^1.0.0
+  intl: ^0.18.1
+  package_info: ^2.0.2
+  path_provider: ^2.0.15    
+  provider: ^6.0.5
+  shared_preferences: ^2.2.0
   
-  provider: ^4.3.2+3
-  shared_preferences: ^2.0.3
-  intl: ^0.17.0
-  http: ^0.13.0
-  google_fonts: ^2.0.0
-  path_provider: ^2.0.1
-  image_picker: ^0.7.2
-  expansion_card: ^0.1.0
+  # provider: ^4.3.2+3
+  # shared_preferences: ^2.0.3
+  # intl: ^0.17.0
+  # http: ^0.13.0
+  # google_fonts: ^2.0.0
+  # path_provider: ^2.0.1
+  # image_picker: ^0.7.2
+  expansion_tile_card: 
 
-  # Package Info
-  # As noted on issue 20761, package_info on iOS requires the Xcode build folder to be rebuilt after changes to the version string in pubspec.yaml. 
-  # Clean the Xcode build folder with: XCode Menu -> Product -> (Holding Option Key) Clean build folder.
-  package_info: '>=0.4.3+2 <2.0.0'
+  # # Package Info
+  # # As noted on issue 20761, package_info on iOS requires the Xcode build folder to be rebuilt after changes to the version string in pubspec.yaml. 
+  # # Clean the Xcode build folder with: XCode Menu -> Product -> (Holding Option Key) Clean build folder.
+  # package_info: '>=0.4.3+2 <2.0.0'
 
-  # Firebase
-  firebase_auth: ^1.0.1
-  cloud_firestore: ^1.0.2
-  firebase_core: ^1.0.2
-  firebase_storage: ^8.0.0
+  # # Firebase
+  # firebase_auth: ^4.6.3
+  # cloud_firestore: ^4.8.2
+  # firebase_core: ^2.14.0
+  # firebase_storage: ^11.2.4
 
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.0
+  # # The following adds the Cupertino Icons font to your application.
+  # # Use with the CupertinoIcons class for iOS style icons.
+  # cupertino_icons: ^1.0.5
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_launcher_icons: ^0.9.0
+  flutter_launcher_icons: ^0.13.1
 
 flutter_icons:
   android: true
@@ -64,16 +99,25 @@ flutter_icons:
 
 # The following section is specific to Flutter.
 flutter:
+  #  plugin:
+  #   platforms:
+  #     android:
+  #       package: io.flutter.plugins.firebase.auth.FlutterFirebaseAuthPlugin
+  #       pluginClass: FlutterFirebaseAuthPlugin
+  #     ios:
+  #       pluginClass: FLTFirebaseAuthPlugin
+  #     web:
+  #       pluginClass: FlutterFirebaseAuthWebPlugin
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
-  uses-material-design: true
+    uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
 
-  assets:
-    - assets/images/blank_profile_picture.png
+    assets:
+      - assets/images/blank_profile_picture.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
@@ -88,26 +132,26 @@ flutter:
 
   # All following fonts are licensed under the Open Font License.
 
-  fonts:
-    - family: FlowerPowerIcon
-      fonts:
-        - asset: assets/fonts/FlowerPowerIcon.ttf
-    - family: Quicksand
-      fonts:
-        - asset: assets/fonts/Quicksand-VariableFont_wght.ttf
-    - family: MavenPro
-      fonts:
-        - asset: assets/fonts/MavenPro-VariableFont_wght.ttf
-    - family: Raleway
-      fonts:
-        - asset: assets/fonts/Raleway-VariableFont_wght.ttf
-        - asset: assets/fonts/Raleway-Italic-VariableFont_wght.ttf
-          style: italic
-    - family: WorkSans
-      fonts:
-        - asset: assets/fonts/WorkSans-VariableFont_wght.ttf
-        - asset: assets/fonts/WorkSans-Italic-VariableFont_wght.ttf
-          style: italic
-  
-  # For details regarding fonts from package dependencies,
-  # see https://flutter.dev/custom-fonts/#from-packages
+    fonts:
+      - family: FlowerPowerIcon
+        fonts:
+          - asset: assets/fonts/FlowerPowerIcon.ttf
+      - family: Quicksand
+        fonts:
+          - asset: assets/fonts/Quicksand-VariableFont_wght.ttf
+      - family: MavenPro
+        fonts:
+          - asset: assets/fonts/MavenPro-VariableFont_wght.ttf
+      - family: Raleway
+        fonts:
+          - asset: assets/fonts/Raleway-VariableFont_wght.ttf
+          - asset: assets/fonts/Raleway-Italic-VariableFont_wght.ttf
+            style: italic
+      - family: WorkSans
+        fonts:
+          - asset: assets/fonts/WorkSans-VariableFont_wght.ttf
+          - asset: assets/fonts/WorkSans-Italic-VariableFont_wght.ttf
+            style: italic
+    
+    # For details regarding fonts from package dependencies,
+    # see https://flutter.dev/custom-fonts/#from-packages

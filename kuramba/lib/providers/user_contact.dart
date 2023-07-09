@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 // import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ContactData {
-  bool isFavorite;
+  late bool isFavorite;
 }
 
 class UserContact with ChangeNotifier {}

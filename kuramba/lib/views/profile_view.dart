@@ -13,7 +13,7 @@ import '../widgets/dialogs/custom_error_dialog.dart';
 import '../widgets/cards/category_card.dart';
 
 class ProfileView extends StatelessWidget {
-  final List<Map<String, Object>> categories = [
+  final List<Map<String, dynamic>> categories = [
     {
       'title': 'Challenges',
       'iconData': Icons.grade_rounded,
@@ -45,15 +45,18 @@ class ProfileView extends StatelessWidget {
           child: RefreshIndicator(
             onRefresh: () async {
               try {
-                Provider.of<CurrentUser>(
+                await Provider.of<CurrentUser>(
                   context,
                   listen: false,
                 ).fetchData();
               } catch (error) {
                 var message = 'An error occurred. Please try again!';
-                if (error.message != null) {
-                  message = error.message;
+                if (error.toString() != null) {
+                  message = error.toString();
                 }
+                // if (error is CustomError) {
+                //   message = error.message;
+                // }
                 showDialog(
                   context: context,
                   builder: (context) => CustomErrorDialog(message),
@@ -128,9 +131,9 @@ class ProfileView extends StatelessWidget {
                     mainAxisSpacing: 20,
                   ),
                   itemBuilder: (context, index) => CategoryCard(
-                    title: categories[index]['title'],
-                    iconData: categories[index]['iconData'],
-                    routeName: categories[index]['routeName'],
+                    title: categories[index]['title'] as String,
+                    iconData: categories[index]['iconData'] as IconData,
+                    routeName: categories[index]['routeName'] as String,
                   ),
                   itemCount: categories.length,
                 ),

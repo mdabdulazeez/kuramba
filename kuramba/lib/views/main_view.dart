@@ -74,7 +74,7 @@ class _MainViewState extends State<MainView> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          views[selectedViewIndex]['title'],
+          views[selectedViewIndex]['title'] as String,
         ),
         centerTitle: true,
         actions: [
@@ -115,9 +115,9 @@ class _MainViewState extends State<MainView> {
       body: _isInit
           ? PageView(
               children: [
-                views[0]['view'],
-                views[1]['view'],
-                views[2]['view'],
+                views[0]['view'] as Widget,
+                views[1]['view'] as Widget,
+                views[2]['view'] as Widget,
               ],
               controller: controller,
               onPageChanged: (index) {
@@ -134,8 +134,8 @@ class _MainViewState extends State<MainView> {
         currentIndex: selectedViewIndex,
         items: views.map((view) {
           return BottomNavigationBarItem(
-            icon: view['icon'],
-            label: view['title'],
+            icon: view['icon'] as Icon,
+            label: view['title'] as String,
           );
         }).toList(),
       ),

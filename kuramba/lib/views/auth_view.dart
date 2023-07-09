@@ -41,13 +41,13 @@ class _AuthViewState extends State<AuthView> {
           password: password,
         );
         final ref = FirebaseStorage.instance.ref().child('user_images').child(
-              '${userCredential.user.uid}.jpg',
+              '${userCredential.user!.uid}.jpg',
             );
         await ref.putFile(image);
         final url = await ref.getDownloadURL();
         await FirebaseFirestore.instance
             .collection('users')
-            .doc(userCredential.user.uid)
+            .doc(userCredential.user!.uid)
             .set(
           {
             'username': username,
@@ -62,7 +62,7 @@ class _AuthViewState extends State<AuthView> {
       });
       var message = 'An error occurred. Please check your credentials!';
       if (error.message != null) {
-        message = error.message;
+        message = error.message!;
       }
       showDialog(
         context: context,
@@ -73,9 +73,9 @@ class _AuthViewState extends State<AuthView> {
         _isLoading = false;
       });
       var message = 'An error occurred. Please check your credentials!';
-      if (error.message != null) {
-        message = error.message;
-      }
+      // if (error.message != null) {
+      //   message = error.message;
+      // }
       showDialog(
         context: context,
         builder: (context) => CustomErrorDialog(message),
@@ -89,7 +89,7 @@ class _AuthViewState extends State<AuthView> {
       onTap: () {
         final FocusScopeNode currentScope = FocusScope.of(context);
         if (!currentScope.hasPrimaryFocus && currentScope.hasFocus) {
-          FocusManager.instance.primaryFocus.unfocus();
+          FocusManager.instance.primaryFocus!.unfocus();
         }
       },
       child: Scaffold(
